@@ -1,0 +1,54 @@
+class Solution{
+  public:
+    // returns the inorder successor of the Node x in BST (rooted at 'root')
+    
+    Node *find(Node *root, int key)
+    {
+        if(!root || root->data == key)
+        return root;
+        
+        if(root->data<key)
+        return find(root->right,key);
+        return find(root->left,key);
+        
+    }
+    
+    Node *findmin(Node * node){
+    if(!node)
+    return NULL;
+    
+    while(node->left != NULL)
+    node = node->left;
+    return node;
+    }
+    
+    Node * inOrderSuccessor(Node *root, Node *x)
+    {
+        //Your code here
+        
+        if(x->right !=  NULL)
+        return findmin(x->right);
+        
+        Node * successor = NULL;
+        while(root != NULL)
+        {
+            if(x->data < root->data)
+            {
+                successor = root;
+                root= root->left;
+                
+            }
+            
+            else if(x->data >root->data)
+            {
+                root = root->right;
+            }
+            else
+            {
+                break;
+            }
+        }
+        
+        return successor;
+    }
+};
